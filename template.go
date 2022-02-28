@@ -236,6 +236,7 @@ type MessageField struct {
 	IsOneof      bool   `json:"isoneof"`
 	OneofDecl    string `json:"oneofdecl"`
 	DefaultValue string `json:"defaultValue"`
+	Number       int32  `json:"number"`
 
 	Options map[string]interface{} `json:"options,omitempty"`
 }
@@ -484,6 +485,7 @@ func parseMessageField(pf *protokit.FieldDescriptor, oneofDecls []*descriptor.On
 		DefaultValue: pf.GetDefaultValue(),
 		Options:      mergeOptions(extractOptions(pf.GetOptions()), extensions.Transform(pf.OptionExtensions)),
 		IsOneof:      pf.OneofIndex != nil,
+		Number:       pf.GetNumber(),
 	}
 
 	if m.IsOneof {
